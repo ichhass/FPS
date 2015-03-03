@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>FPS project</title>
+	<!-- FPS project                                                    -->
+	<!-- A world, based on voxel map                                    -->
+	<!-- A players, that can look, run and jump around in the world     -->
+	<!-- Pointer lock and full-screen                                   -->
+	<!-- Shooting at enemies                                            -->
+	<!-- Health, that deteriorate and respawn, when run oun of health   -->
+	<!-- Screen flash red, when shot                                    -->
+	<!-- HUD with crosshairs and health indicators                      -->
+	<link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+	<div id="Stats-output"></div>
+	<div id="start">
+		<div id="instructions">
+			Click to start
+		</div>
+	</div>
+	<div id="hud" class="hidden">
+		<div id="hurt" class="hidden">
+
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js"></script>
+	<script src="js/libs/BigScreen.js"></script>
+	<script src="js/libs/PointerLock.js"></script>
+	<script src="js/libs/stats.js"></script>
+	<script src="js/player.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>
