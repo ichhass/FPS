@@ -56,6 +56,7 @@ var meshMap = new Array(map.length);
 function MapCell() {
 	this.set.apply(this, arguments);
 }
+
 MapCell.prototype.set = function(row, col, char, mesh) {
 	this.row = row;
 	this.col = col;

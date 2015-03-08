@@ -188,6 +188,51 @@ document.addEventListener('mousemove', function(event) {
 	player.rotate(event.movementY, event.movementX, 0);
 }, false);
 
+document.addEventListener('keydown', function(event) {
+	switch (event.keyCode) {
+		case 38: // up
+		case 87: // w
+			player.moveDirection.FORWARD = true;
+			break;
+		case 17: // left
+		case 65: // a
+			player.moveDirection.LEFT = true;
+			break;
+		case 40: // down
+		case 83: // s
+			player.moveDirection.BACKWARD= true;
+			break;
+		case 39: // right
+		case 68: // d
+			player.moveDirection.RIGHT = true;
+			break;
+		case 32: // jump
+			player.jump();
+			break;
+	}
+}, false);
+
+document.addEventListener('keyup', function(event) {
+	switch (event.keyCode) {
+		case 38: // up
+		case 87: // w
+			player.moveDirection.FORWARD = false;
+			break;
+		case 17: // left
+		case 65: // a
+			player.moveDirection.LEFT = false;
+			break;
+		case 40: // down
+		case 83: // s
+			player.moveDirection.BACKWARD= false;
+			break;
+		case 39: // right
+		case 68: // d
+			player.moveDirection.RIGHT = false;
+			break;
+	}
+}, false);
+
 // Update
 
 function update(delta) {
