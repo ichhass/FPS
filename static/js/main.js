@@ -51,7 +51,7 @@ function setupMap() {
 	}
 	var floorGeometry = new THREE.PlaneBufferGeometry(1000, 1000, 1, 1);
 	var floorMaterial = new THREE.MeshPhongMaterial({color: 'grey'});
-	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
+	var floor = new Physijs.BoxMesh(floorGeometry, floorMaterial, 0);
 	floor.rotation.x = -90 * Math.PI / 180;
 	floor.receiveShadow = true;
 	scene.add(floor);
@@ -69,7 +69,7 @@ function addVoxel(type, row, col) {
 			var geo = new THREE.BoxGeometry(HORIZONTAL_UNIT, VERTICAL_UNIT, HORIZONTAL_UNIT);
 			var material = new THREE.MeshLambertMaterial({color: Math.random() * 0xffffff});
 			//var material = new THREE.MeshDepthMaterial();
-			var mesh = new THREE.Mesh(geo, material);
+			var mesh = new Physijs.BoxMesh(geo, material,10);
 			mesh.position.set(x, VERTICAL_UNIT*0.5, z);
 			mesh.castShadow = true;
 			mesh.receiveShadow = true;
@@ -77,6 +77,25 @@ function addVoxel(type, row, col) {
 	}
 
 }
+
+// Export Collada Scene
+
+function setupMapCollada() {
+	var loader = new THREE.ColladaLoader();
+
+	loader.load(
+		'map.dae',
+		function(obj) {
+			mesh = obj.scene;
+			mesh.position.set(0,0,0);
+			mesh.rotation.x=-0.5*Math.PI;
+			mesh.scale.set(250,250,250);
+			scene.add(mesh);
+		}
+	)
+}
+
+
 
 // Animation --------------------------------
 
@@ -104,6 +123,7 @@ function animate() {
 	}
 	stats.update();
 	renderer.render(scene, camera);
+	scene.simulate();
 	if (!paused) {
 		requestAnimationFrame(animate);
 	}
@@ -118,7 +138,12 @@ function setup() {
 }
 
 function setupThreeJS() {
-	scene = new THREE.Scene();
+
+	Physijs.scripts.worker = 'js/libs/physijs_worker.js';
+	Physijs.scripts.ammo - 'js/libs/ammo.js';
+
+	scene = new Physijs.Scene();
+	scene.setGravity(new THREE.Vector3(0, -10, 0));
 
 	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 5000);
 	camera.position.y = 50;
@@ -137,6 +162,8 @@ function setupThreeJS() {
 }
 
 function setupWorld() {
+	//setupMapCollada();
+
 	setupMap();
 	addLight();
 
